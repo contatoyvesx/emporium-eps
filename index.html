@@ -421,18 +421,41 @@
 
     .benefits { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
 
+    @media (max-width: 1080px) {
+      .nav { padding-inline: 18px; }
+      section { padding-inline: 18px; }
+    }
+
     @media (max-width: 960px) {
-      .hero { grid-template-columns: 1fr; padding-top: 90px; }
-      nav ul { position: absolute; top: 74px; right: 20px; background: rgba(17,17,17,0.95); padding: 14px; border: 1px solid rgba(217,194,65,0.2); border-radius: 12px; flex-direction: column; align-items: flex-start; min-width: 200px; display: none; }
+      .hero { grid-template-columns: 1fr; padding-top: 90px; gap: 18px; }
+      nav { width: 100%; }
+      nav ul { position: absolute; top: 74px; left: 18px; right: 18px; background: rgba(17,17,17,0.95); padding: 14px; border: 1px solid rgba(217,194,65,0.2); border-radius: 12px; flex-direction: column; align-items: flex-start; display: none; box-shadow: 0 18px 36px rgba(0,0,0,0.4); }
       nav ul.open { display: flex; }
+      nav li a { width: 100%; }
       .menu-toggle { display: inline-flex; }
-      .nav { flex-wrap: wrap; }
-      .nav-actions { width: 100%; justify-content: flex-start; }
+      .nav { flex-wrap: wrap; gap: 10px; }
+      .nav-actions { width: 100%; justify-content: flex-start; flex-wrap: wrap; gap: 10px; }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 40px; }
+      p.lead { font-size: 16px; }
+      section { padding: 64px 18px; }
+      .nav { padding-block: 14px; }
+      .hero-visual .glass { padding: 20px; }
+      .chips, .pill-list { gap: 8px; }
+      .services { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      .projects { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      .contact { grid-template-columns: 1fr; }
+      .contact .form-card, .contact .contact-card { padding: 18px; }
     }
 
     @media (max-width: 640px) {
-      h1 { font-size: 38px; }
-      .section-title { font-size: 28px; }
+      h1 { font-size: 34px; }
+      .section-title { font-size: 26px; }
+      .btn { width: 100%; justify-content: center; }
+      .nav-actions { flex-direction: column; align-items: stretch; }
+      .stats { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
     }
   </style>
 </head>
