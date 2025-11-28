@@ -95,6 +95,26 @@
       align-items: center;
     }
 
+    .whatsapp-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(120deg, #e3d05e, #d9c241);
+      color: #0f0f0f;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      box-shadow: 0 12px 30px rgba(217,194,65,0.35);
+      border: 1px solid rgba(0,0,0,0.1);
+      z-index: 140;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .whatsapp-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -127,12 +147,27 @@
 
     .menu-toggle {
       display: none;
+      align-items: center;
+      gap: 8px;
       background: rgba(217,194,65,0.12);
       border: 1px solid rgba(217,194,65,0.4);
       color: var(--gold);
-      padding: 8px 12px;
+      padding: 10px 14px;
       border-radius: 12px;
       cursor: pointer;
+      font-weight: 600;
+    }
+
+    .menu-toggle .bars {
+      display: grid;
+      gap: 4px;
+    }
+
+    .menu-toggle .bars span {
+      width: 20px;
+      height: 2px;
+      background: var(--gold);
+      display: block;
     }
 
     .hero {
@@ -421,6 +456,20 @@
 
     .benefits { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
 
+    .nav-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 90;
+    }
+
+    .nav-backdrop.visible { opacity: 1; visibility: visible; }
+
+    body.menu-open { overflow: hidden; }
+
     @media (max-width: 1080px) {
       .nav { padding-inline: 18px; }
       section { padding-inline: 18px; }
@@ -429,8 +478,27 @@
     @media (max-width: 960px) {
       .hero { grid-template-columns: 1fr; padding-top: 90px; gap: 18px; }
       nav { width: 100%; }
-      nav ul { position: absolute; top: 74px; left: 18px; right: 18px; background: rgba(17,17,17,0.95); padding: 14px; border: 1px solid rgba(217,194,65,0.2); border-radius: 12px; flex-direction: column; align-items: flex-start; display: none; box-shadow: 0 18px 36px rgba(0,0,0,0.4); }
-      nav ul.open { display: flex; }
+      nav ul {
+        position: fixed;
+        left: 16px;
+        right: 16px;
+        top: 82px;
+        background: rgba(17,17,17,0.95);
+        padding: 18px;
+        border: 1px solid rgba(217,194,65,0.2);
+        border-radius: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        display: flex;
+        gap: 10px;
+        box-shadow: 0 18px 36px rgba(0,0,0,0.4);
+        opacity: 0;
+        transform: translateY(-10px);
+        visibility: hidden;
+        transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+        z-index: 120;
+      }
+      nav ul.open { opacity: 1; visibility: visible; transform: translateY(0); }
       nav li a { width: 100%; }
       .menu-toggle { display: inline-flex; }
       .nav { flex-wrap: wrap; gap: 10px; }
@@ -459,18 +527,25 @@
     }
   </style>
 </head>
-<body>
-  <header>
-    <div class="nav" id="navbar">
-      <div class="brand">
-        <div class="logo">EPS</div>
-        Emporium EPS
-      </div>
-      <button class="menu-toggle" id="menuToggle">Menu</button>
-      <nav>
-        <ul id="navList">
-          <li><a href="#sobre">Sobre</a></li>
-          <li><a href="#servicos">Serviços</a></li>
+  <body>
+    <header>
+      <div class="nav" id="navbar">
+        <div class="brand">
+          <div class="logo">EPS</div>
+          Emporium EPS
+        </div>
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+          <span class="bars" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          Menu
+        </button>
+        <nav>
+          <ul id="navList">
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#servicos">Serviços</a></li>
           <li><a href="#projetos">Projetos</a></li>
           <li><a href="#contato">Contato</a></li>
         </ul>
@@ -481,6 +556,8 @@
       </div>
     </div>
   </header>
+
+  <div class="nav-backdrop" id="navBackdrop"></div>
 
   <main>
     <section class="hero" id="sobre">
@@ -774,17 +851,40 @@
     <div class="signature">© 2024 Emporium EPS - Construção inteligente em EPS</div>
   </footer>
 
+  <a class="whatsapp-btn" href="https://wa.me/5551999999999" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M12 2C6.486 2 2 6.211 2 11.204c0 1.814.534 3.564 1.548 5.086L2 22l5.9-1.512A9.96 9.96 0 0 0 12 20.408C17.514 20.408 22 16.197 22 11.204 22 6.211 17.514 2 12 2Zm0 16.408c-1.364 0-2.7-.362-3.865-1.048l-.277-.163-3.488.893.93-3.217-.181-.287A7.163 7.163 0 0 1 4.4 11.204C4.4 7.009 7.775 3.6 12 3.6s7.6 3.409 7.6 7.604-3.375 7.204-7.6 7.204Z" fill="#0f0f0f"/>
+      <path d="M17.402 14.316c-.297-.148-1.758-.867-2.031-.966-.273-.099-.473-.148-.673.148-.198.297-.77.965-.944 1.162-.173.198-.347.223-.644.074-.297-.148-1.255-.454-2.39-1.447-.883-.788-1.48-1.761-1.653-2.058-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.173.198-.297.297-.495.099-.198.05-.371-.025-.52-.074-.148-.673-1.615-.923-2.215-.243-.579-.49-.5-.673-.51-.173-.009-.371-.011-.57-.011-.198 0-.52.074-.793.372-.273.297-1.043 1.018-1.043 2.479 0 1.46 1.068 2.872 1.217 3.07.149.198 2.106 3.215 5.105 4.506.714.308 1.27.492 1.704.63.715.226 1.366.194 1.88.118.574-.085 1.758-.718 2.006-1.41.248-.694.248-1.289.173-1.411-.074-.123-.272-.198-.57-.347Z" fill="#0f0f0f"/>
+    </svg>
+    Fale no WhatsApp
+  </a>
+
   <script>
     // Menu toggle for mobile
     const menuToggle = document.getElementById('menuToggle');
     const navList = document.getElementById('navList');
+    const navBackdrop = document.getElementById('navBackdrop');
+
+    const setMenuState = (isOpen) => {
+      navList.classList.toggle('open', isOpen);
+      document.body.classList.toggle('menu-open', isOpen);
+      navBackdrop.classList.toggle('visible', isOpen);
+      menuToggle.setAttribute('aria-expanded', isOpen);
+    };
+
     menuToggle.addEventListener('click', () => {
-      navList.classList.toggle('open');
+      const isOpen = navList.classList.contains('open');
+      setMenuState(!isOpen);
     });
 
-    // Close menu on link click (mobile)
+    navBackdrop.addEventListener('click', () => setMenuState(false));
+
     navList.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => navList.classList.remove('open'));
+      link.addEventListener('click', () => setMenuState(false));
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 960) setMenuState(false);
     });
 
     // Navbar shrink on scroll
