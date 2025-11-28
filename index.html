@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emporium EPS | Construção com Tecnologia EPS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #d9c241;
+      --dark: #1b1b1b;
+      --gray: #b5b5b5;
+      --light: #f7f6f1;
+      --shadow: 0 15px 40px rgba(0,0,0,0.22);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #0f0f0f 0%, #1b1b1b 45%, #111 100%);
+      color: var(--gray);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(17,17,17,0.86);
+      border-bottom: 1px solid rgba(217,194,65,0.25);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: padding 0.3s ease;
+    }
+
+    .nav.shrink { padding: 10px 24px; }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .brand .logo {
+      width: 42px;
+      height: 42px;
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      box-shadow: inset 0 0 0 2px rgba(217,194,65,0.3);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 18px;
+      padding: 0;
+      margin: 0;
+      align-items: center;
+    }
+
+    nav li a {
+      padding: 10px 14px;
+      border-radius: 30px;
+      font-weight: 500;
+      color: var(--light);
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+    }
+
+    nav li a:hover { background: rgba(217,194,65,0.15); color: var(--gold); transform: translateY(-1px); }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .whatsapp-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #22c35e, #25d366);
+      color: #0f0f0f;
+      padding: 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.35);
+      border: 1px solid rgba(0,0,0,0.08);
+      z-index: 140;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(37, 211, 102, 0.45); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.3s, background 0.3s, border-color 0.3s;
+      text-decoration: none;
+    }
+
+    .btn.primary {
+      background: linear-gradient(120deg, #e3d05e, #d9c241);
+      color: #0f0f0f;
+      box-shadow: 0 10px 30px rgba(217,194,65,0.35);
+    }
+
+    .btn.primary:hover { transform: translateY(-2px) scale(1.01); box-shadow: var(--shadow); }
+
+    .btn.ghost {
+      border-color: rgba(217,194,65,0.4);
+      color: var(--gold);
+      background: rgba(217,194,65,0.08);
+    }
+
+    .btn.ghost:hover { background: rgba(217,194,65,0.18); }
+
+    .menu-toggle {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(217,194,65,0.12);
+      border: 1px solid rgba(217,194,65,0.4);
+      color: var(--gold);
+      padding: 10px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .menu-toggle .bars {
+      display: grid;
+      gap: 4px;
+    }
+
+    .menu-toggle .bars span {
+      width: 20px;
+      height: 2px;
+      background: var(--gold);
+      display: block;
+    }
+
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: rgba(217,194,65,0.1);
+      border: 1px solid rgba(217,194,65,0.35);
+      color: var(--gold);
+      border-radius: 12px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+    }
+
+    h1 {
+      font-size: 52px;
+      margin: 18px 0 14px;
+      color: #f4f4f4;
+      line-height: 1.08;
+    }
+
+    p.lead {
+      font-size: 18px;
+      color: var(--gray);
+      margin-bottom: 28px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(217,194,65,0.12);
+      padding: 18px;
+      border-radius: 12px;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .stat-card:hover { transform: translateY(-4px); border-color: rgba(217,194,65,0.35); }
+
+    .stat-card h3 { margin: 0; color: var(--gold); font-size: 28px; }
+
+    .stat-card span { color: var(--gray); font-weight: 500; }
+
+    .hero-visual {
+      position: relative;
+      padding: 18px;
+    }
+
+    .hero-visual .glass {
+      background: linear-gradient(145deg, rgba(217,194,65,0.16), rgba(17,17,17,0.9));
+      border: 1px solid rgba(217,194,65,0.25);
+      border-radius: 24px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual .badge {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: rgba(217,194,65,0.22);
+      color: #0f0f0f;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    .hero-visual img {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(217,194,65,0.25);
+      filter: saturate(1.05);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      background: rgba(217,194,65,0.12);
+      color: var(--gold);
+      border-radius: 12px;
+      font-size: 13px;
+      border: 1px solid rgba(217,194,65,0.35);
+    }
+
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    .section-title {
+      color: #f5f5f5;
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .section-sub {
+      color: var(--gray);
+      margin-bottom: 34px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .services { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+    .card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(217,194,65,0.18);
+      border-radius: 14px;
+      padding: 20px;
+      transition: transform 0.3s ease, border-color 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(217,194,65,0.35);
+      box-shadow: var(--shadow);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(217,194,65,0.08), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card h3 { color: var(--gold); margin-top: 6px; }
+    .card p { color: var(--gray); }
+
+    .icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(217,194,65,0.12);
+      color: var(--gold);
+      font-weight: 700;
+      border: 1px solid rgba(217,194,65,0.25);
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .pill { background: rgba(217,194,65,0.12); padding: 8px 12px; border-radius: 10px; color: var(--light); font-weight: 600; border: 1px solid rgba(217,194,65,0.25); }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 26px;
+      align-items: center;
+    }
+
+    .timeline { border-left: 2px solid rgba(217,194,65,0.3); padding-left: 18px; display: grid; gap: 18px; }
+    .timeline-step h4 { color: var(--gold); margin: 0; }
+    .timeline-step p { margin: 6px 0 0; }
+
+    .projects { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .project-thumb {
+      height: 180px;
+      border-radius: 12px;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 12px;
+      border: 1px solid rgba(217,194,65,0.3);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.3);
+    }
+
+    .badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge-tag { padding: 6px 10px; border-radius: 10px; background: rgba(217,194,65,0.14); color: var(--gold); border: 1px solid rgba(217,194,65,0.3); }
+
+    .cta {
+      text-align: center;
+      background: radial-gradient(circle at 20% 20%, rgba(217,194,65,0.18), transparent 40%),
+                  radial-gradient(circle at 80% 10%, rgba(217,194,65,0.12), transparent 35%),
+                  linear-gradient(180deg, rgba(217,194,65,0.12), rgba(17,17,17,0.9));
+      border: 1px solid rgba(217,194,65,0.2);
+      border-radius: 18px;
+      padding: 60px 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .cta h2 { color: #fff; margin: 0 0 12px; font-size: 32px; }
+    .cta p { color: var(--gray); margin-bottom: 22px; }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      align-items: center;
+    }
+
+    .contact-card, .form-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(217,194,65,0.25);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+
+    form { display: grid; gap: 12px; }
+    label { color: var(--light); font-weight: 600; }
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(217,194,65,0.25);
+      background: rgba(255,255,255,0.04);
+      color: var(--light);
+      font-family: inherit;
+    }
+
+    textarea { resize: vertical; min-height: 120px; }
+
+    .footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 24px 50px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      color: var(--gray);
+      border-top: 1px solid rgba(217,194,65,0.15);
+    }
+
+    .footer h4 { color: #fff; margin: 0 0 12px; }
+    .footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .footer a:hover { color: var(--gold); }
+
+    .signature { text-align: center; color: #6b6b6b; padding: 16px 0 30px; font-size: 14px; }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .testimonial {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(217,194,65,0.25);
+      border-radius: 14px;
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .testimonial .author { display: flex; align-items: center; gap: 12px; }
+    .author .avatar { width: 46px; height: 46px; border-radius: 50%; background: rgba(217,194,65,0.14); border: 1px solid rgba(217,194,65,0.25); display: grid; place-items: center; color: var(--gold); font-weight: 700; }
+    .author strong { color: #fff; }
+    .stars { color: var(--gold); }
+
+    .benefits { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+
+    .nav-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 90;
+    }
+
+    .nav-backdrop.visible { opacity: 1; visibility: visible; }
+
+    body.menu-open { overflow: hidden; }
+
+    @media (max-width: 1080px) {
+      .nav { padding-inline: 18px; }
+      section { padding-inline: 18px; }
+    }
+
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; padding-top: 90px; gap: 18px; }
+      nav { width: 100%; }
+      nav ul {
+        position: fixed;
+        left: 16px;
+        right: 16px;
+        top: 82px;
+        background: rgba(17,17,17,0.95);
+        padding: 18px;
+        border: 1px solid rgba(217,194,65,0.2);
+        border-radius: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        display: flex;
+        gap: 10px;
+        box-shadow: 0 18px 36px rgba(0,0,0,0.4);
+        opacity: 0;
+        transform: translateY(-10px);
+        visibility: hidden;
+        transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+        z-index: 120;
+      }
+      nav ul.open { opacity: 1; visibility: visible; transform: translateY(0); }
+      nav li a { width: 100%; }
+      .menu-toggle { display: inline-flex; }
+      .nav { flex-wrap: wrap; gap: 10px; }
+      .nav-actions { width: 100%; justify-content: flex-start; flex-wrap: wrap; gap: 10px; }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 40px; }
+      p.lead { font-size: 16px; }
+      section { padding: 64px 18px; }
+      .nav { padding-block: 14px; }
+      .hero-visual .glass { padding: 20px; }
+      .chips, .pill-list { gap: 8px; }
+      .services { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      .projects { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      .contact { grid-template-columns: 1fr; }
+      .contact .form-card, .contact .contact-card { padding: 18px; }
+    }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 34px; }
+      .section-title { font-size: 26px; }
+      .btn { width: 100%; justify-content: center; }
+      .nav-actions { flex-direction: column; align-items: stretch; }
+      .stats { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+    }
+  </style>
+</head>
+  <body>
+    <header>
+      <div class="nav" id="navbar">
+        <div class="brand">
+          <div class="logo">EPS</div>
+          Emporium EPS
+        </div>
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+          <span class="bars" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          Menu
+        </button>
+        <nav>
+          <ul id="navList">
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#projetos">Projetos</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn ghost" href="#projetos">Portfólio</a>
+        <a class="btn primary" href="#contato">Fale conosco</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="nav-backdrop" id="navBackdrop"></div>
+
+  <main>
+    <section class="hero" id="sobre">
+      <div class="hero-text reveal">
+        <div class="eyebrow">Construção inteligente em EPS</div>
+        <h1>Infraestrutura leve, precisa e sustentável para obras de alto padrão.</h1>
+        <p class="lead">A Emporium EPS une engenharia e tecnologia para entregar estruturas rápidas, resistentes e eficientes, com painéis EPS que reduzem prazos, desperdícios e custos energéticos.</p>
+        <div class="chips">
+          <span class="chip">Painéis estruturais EPS</span>
+          <span class="chip">Obras residenciais e corporativas</span>
+          <span class="chip">Performance termoacústica</span>
+        </div>
+        <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+          <a class="btn primary" href="#contato">Agendar consultoria</a>
+          <a class="btn ghost" href="#servicos">Ver soluções</a>
+        </div>
+        <div class="stats">
+          <div class="stat-card">
+            <h3>+280</h3>
+            <span>Projetos em EPS entregues</span>
+          </div>
+          <div class="stat-card">
+            <h3>32%</h3>
+            <span>Redução média de prazo de obra</span>
+          </div>
+          <div class="stat-card">
+            <h3>50 anos</h3>
+            <span>Durabilidade projetada com manutenção mínima</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual reveal" style="transition-delay:0.1s;">
+        <div class="glass">
+          <div class="badge">EPS Premium</div>
+          <img src="data:image/svg+xml;base64,CjxzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB3aWR0aD0nOTYwJyBoZWlnaHQ9JzcyMCcgdmlld0JveD0nMCAwIDk2MCA3MjAnPgogIDxyZWN0IGZpbGw9JyMwZjBmMGYnIHdpZHRoPSc5NjAnIGhlaWdodD0nNzIwJy8+CiAgPHJlY3QgeD0nNDIwJyB5PSc4MCcgd2lkdGg9JzM2MCcgaGVpZ2h0PScyMDAnIHJ4PScyMCcgZmlsbD0nIzFiMWIxYicgc3Ryb2tlPScjZDljMjQxJyBzdHJva2Utd2lkdGg9JzEwJyBvcGFjaXR5PScwLjYnLz4KICA8cmVjdCB4PScxMjAnIHk9JzE0MCcgd2lkdGg9JzMyMCcgaGVpZ2h0PSc0MjAnIHJ4PScyNCcgZmlsbD0nI2Y0ZjRmNCcgc3Ryb2tlPScjZDljMjQxJyBzdHJva2Utd2lkdGg9JzEyJy8+CiAgPHJlY3QgeD0nMTUwJyB5PScxODAnIHdpZHRoPScyNjAnIGhlaWdodD0nNjAnIGZpbGw9JyNmZmZmZmYnIG9wYWNpdHk9JzAuOCcvPgogIDxyZWN0IHg9JzE1MCcgeT0nMjcwJyB3aWR0aD0nMjYwJyBoZWlnaHQ9JzYwJyBmaWxsPScjZmZmZmZmJyBvcGFjaXR5PScwLjknLz4KICA8cmVjdCB4PScxNTAnIHk9JzM2MCcgd2lkdGg9JzI2MCcgaGVpZ2h0PSc2MCcgZmlsbD0nI2Y5ZjlmOScgb3BhY2l0eT0nMC45Jy8+CiAgPHJlY3QgeD0nMTUwJyB5PSc0NTAnIHdpZHRoPScyNjAnIGhlaWdodD0nNjAnIGZpbGw9JyNmMWYxZjEnIG9wYWNpdHk9JzAuOTUnLz4KICA8cmVjdCB4PSc1MjAnIHk9JzMyMCcgd2lkdGg9JzIyMCcgaGVpZ2h0PScyMzAnIHJ4PScxOCcgZmlsbD0nI2U4ZThlOCcgc3Ryb2tlPScjYjViNWI1JyBzdHJva2Utd2lkdGg9JzgnLz4KICA8cmVjdCB4PSc1NDUnIHk9JzM1MCcgd2lkdGg9JzE3MCcgaGVpZ2h0PSc2MCcgZmlsbD0nI2ZmZmZmZicgb3BhY2l0eT0nMC45Jy8+CiAgPHJlY3QgeD0nNTQ1JyB5PSc0MzAnIHdpZHRoPScxNzAnIGhlaWdodD0nNjAnIGZpbGw9JyNmN2Y3ZjcnIG9wYWNpdHk9JzAuOScvPgogIDxwYXRoIGQ9J000MjAgMjAwIEw1MjAgMzMwJyBzdHJva2U9JyNkOWMyNDEnIHN0cm9rZS13aWR0aD0nMTInIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcvPgogIDxwYXRoIGQ9J00zNjAgMTIwIEw2NDAgMTIwIEw2NDAgNzAgTDc2MCA3MCcgc3Ryb2tlPScjZDljMjQxJyBzdHJva2Utd2lkdGg9JzgnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWRhc2hhcnJheT0nMTIgMTAnLz4KICA8Y2lyY2xlIGN4PSc3NjAnIGN5PSc3MCcgcj0nMTYnIGZpbGw9JyNkOWMyNDEnLz4KICA8cmVjdCB4PSc0MzAnIHk9JzEyMCcgd2lkdGg9JzE2MCcgaGVpZ2h0PSc1MCcgcng9JzEyJyBmaWxsPScjMWIxYjFiJyBzdHJva2U9JyNkOWMyNDEnIHN0cm9rZS13aWR0aD0nNCcvPgogIDx0ZXh0IHg9JzUxMCcgeT0nMTUyJyBmb250LXNpemU9JzE4JyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBmaWxsPScjZDljMjQxJyBmb250LWZhbWlseT0nQXJpYWwsIHNhbnMtc2VyaWYnPk1vbnRhZ2VtIEVQUzwvdGV4dD4KICA8dGV4dCB4PScyODAnIHk9JzU0MCcgZm9udC1zaXplPScyMCcgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nIzFiMWIxYicgZm9udC1mYW1pbHk9J0FyaWFsLCBzYW5zLXNlcmlmJz5QYWluZWwgZXN0cnV0dXJhbCBFUFM8L3RleHQ+CiAgPHRleHQgeD0nNjMwJyB5PSc1OTAnIGZvbnQtc2l6ZT0nMjAnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZpbGw9JyMxYjFiMWInIGZvbnQtZmFtaWx5PSdBcmlhbCwgc2Fucy1zZXJpZic+RW5jaGltZW50byBsZXZlPC90ZXh0PgogIDxyZWN0IHg9JzkwJyB5PSc5MCcgd2lkdGg9JzE0MCcgaGVpZ2h0PSc0MCcgcng9JzEwJyBmaWxsPScjZDljMjQxJyBvcGFjaXR5PScwLjE1Jy8+CiAgPHJlY3QgeD0nMTAwJyB5PSc1NjAnIHdpZHRoPScxNjAnIGhlaWdodD0nODAnIHJ4PScxOCcgZmlsbD0nI2Q5YzI0MScgb3BhY2l0eT0nMC4xMicvPgogIDxyZWN0IHg9JzcwMCcgeT0nMjAwJyB3aWR0aD0nMTUwJyBoZWlnaHQ9JzgwJyByeD0nMTgnIGZpbGw9JyNkOWMyNDEnIG9wYWNpdHk9JzAuMTInLz4KPC9zdmc+Cg==" alt="Ilustração de painéis e montagem estrutural em EPS">
+          <div class="pill-list" style="margin-top:16px;">
+            <span class="pill">Montagem modular</span>
+            <span class="pill">Precisão industrial</span>
+            <span class="pill">Alto desempenho energético</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicos" class="reveal">
+      <h2 class="section-title">Soluções completas em EPS</h2>
+      <p class="section-sub">Do projeto à execução, cuidamos de cada etapa para acelerar sua obra com excelência.</p>
+      <div class="grid services">
+        <div class="card">
+          <div class="icon">01</div>
+          <h3>Estruturas pré-moldadas</h3>
+          <p>Painéis autoportantes com alma de EPS e telas eletrossoldadas, garantindo leveza, resistência e montagem rápida.</p>
+          <div class="pill-list">
+            <span class="pill">Portas e vãos precisos</span>
+            <span class="pill">Menos carga na fundação</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="icon">02</div>
+          <h3>Envelopamento termoacústico</h3>
+          <p>Revestimentos completos que elevam o isolamento térmico e acústico, trazendo conforto e economia de energia.</p>
+          <div class="pill-list">
+            <span class="pill">Clima estável</span>
+            <span class="pill">Reduz ruído urbano</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="icon">03</div>
+          <h3>Projetos sob medida</h3>
+          <p>Equipe de engenharia e BIM integrada para adaptar o EPS a qualquer tipologia, do residencial ao corporativo.</p>
+          <div class="pill-list">
+            <span class="pill">Modelagem 3D</span>
+            <span class="pill">Compatibilização</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="icon">04</div>
+          <h3>Execução assistida</h3>
+          <p>Treinamento, supervisão e kits completos para seu time montar e concretar com segurança e desempenho.</p>
+          <div class="pill-list">
+            <span class="pill">Checklists</span>
+            <span class="pill">Garantia técnica</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="two-col reveal" id="diferenciais">
+      <div>
+        <h2 class="section-title">Por que construir com EPS?</h2>
+        <p class="section-sub">Uma solução mais leve, sustentável e inteligente para obras rápidas e precisas.</p>
+        <div class="benefits">
+          <div class="card">
+            <h3>Precisão industrial</h3>
+            <p>Painéis cortados a CNC, garantindo alinhamento perfeito, vãos limpos e menos retrabalho.</p>
+          </div>
+          <div class="card">
+            <h3>Desempenho térmico</h3>
+            <p>Conforto em todas as estações, com menor dependência de climatização e redução de custos.</p>
+          </div>
+          <div class="card">
+            <h3>Sustentabilidade</h3>
+            <p>Redução de resíduos e emissões, com menor uso de concreto e transporte otimizado.</p>
+          </div>
+          <div class="card">
+            <h3>Obra limpa</h3>
+            <p>Montagem seca, canteiro organizado e menos vizinhança impactada pelo processo construtivo.</p>
+          </div>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-step">
+          <h4>1. Diagnóstico</h4>
+          <p>Entendemos o escopo, analisamos terreno e necessidades para propor a melhor solução EPS.</p>
+        </div>
+        <div class="timeline-step">
+          <h4>2. Projeto & BIM</h4>
+          <p>Modelagem detalhada, compatibilização e corte industrial dos painéis sob medida.</p>
+        </div>
+        <div class="timeline-step">
+          <h4>3. Montagem</h4>
+          <p>Equipe treinada monta e arma painéis em poucos dias, reduzindo prazos de obra.</p>
+        </div>
+        <div class="timeline-step">
+          <h4>4. Concretagem e acabamentos</h4>
+          <p>Aplicação de concreto projetado, instalações e finalização com alta qualidade.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projetos" class="reveal">
+      <h2 class="section-title">Projetos em destaque</h2>
+      <p class="section-sub">Obras que comprovam a versatilidade e robustez da construção em EPS.</p>
+      <div class="grid projects">
+        <div class="card">
+          <div class="project-thumb" style="background-image:url('data:image/svg+xml;base64,CjxzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB3aWR0aD0nOTAwJyBoZWlnaHQ9JzYyMCcgdmlld0JveD0nMCAwIDkwMCA2MjAnPgogIDxyZWN0IGZpbGw9JyMxMDEwMTAnIHdpZHRoPSc5MDAnIGhlaWdodD0nNjIwJy8+CiAgPHJlY3QgeD0nOTAnIHk9JzE3MCcgd2lkdGg9JzU0MCcgaGVpZ2h0PSczMjAnIHJ4PScyMicgZmlsbD0nI2YyZjJmMicgc3Ryb2tlPScjZDljMjQxJyBzdHJva2Utd2lkdGg9JzEwJy8+CiAgPHJlY3QgeD0nMTIwJyB5PScyMDAnIHdpZHRoPScyMjAnIGhlaWdodD0nMjUwJyBmaWxsPScjZmZmZmZmJyBvcGFjaXR5PScwLjknLz4KICA8cmVjdCB4PSczNjAnIHk9JzIwMCcgd2lkdGg9JzI0MCcgaGVpZ2h0PScyNTAnIGZpbGw9JyNmYWZhZmEnIG9wYWNpdHk9JzAuOTUnLz4KICA8cmVjdCB4PScxMjAnIHk9JzIyMCcgd2lkdGg9JzIyMCcgaGVpZ2h0PScyOCcgZmlsbD0nI2Q5YzI0MScgb3BhY2l0eT0nMC4yJy8+CiAgPHJlY3QgeD0nMzYwJyB5PScyMjAnIHdpZHRoPScyNDAnIGhlaWdodD0nMjgnIGZpbGw9JyNkOWMyNDEnIG9wYWNpdHk9JzAuMTgnLz4KICA8cmVjdCB4PSc2NDAnIHk9JzI0MCcgd2lkdGg9JzEyMCcgaGVpZ2h0PScxODAnIHJ4PScxNicgZmlsbD0nI2U2ZTZlNicgc3Ryb2tlPScjYjViNWI1JyBzdHJva2Utd2lkdGg9JzYnLz4KICA8cmVjdCB4PSc2NjUnIHk9JzI2NScgd2lkdGg9JzcwJyBoZWlnaHQ9JzExMCcgZmlsbD0nI2ZmZmZmZicgb3BhY2l0eT0nMC45Jy8+CiAgPHRleHQgeD0nMzYwJyB5PSc1MjAnIGZvbnQtc2l6ZT0nMjAnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZpbGw9JyNkOWMyNDEnIGZvbnQtZmFtaWx5PSdBcmlhbCwgc2Fucy1zZXJpZic+UGFyZWRlIGVtIHBhaW7DqWlzIEVQUzwvdGV4dD4KICA8dGV4dCB4PSczNjAnIHk9JzU1MicgZm9udC1zaXplPScxNScgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nI2I1YjViNScgZm9udC1mYW1pbHk9J0FyaWFsLCBzYW5zLXNlcmlmJz5SZXNpZGVuY2lhbCBQYW5vcmFtYTwvdGV4dD4KICA8cGF0aCBkPSdNOTAgMTcwIEwxODAgMTIwIEw3MjAgMTIwIEw2MzAgMTcwWicgZmlsbD0nIzFiMWIxYicgc3Ryb2tlPScjZDljMjQxJyBzdHJva2Utd2lkdGg9JzgnLz4KICA8cmVjdCB4PScyNTAnIHk9JzI2MCcgd2lkdGg9JzgwJyBoZWlnaHQ9JzkwJyBmaWxsPScjMWIxYjFiJyBvcGFjaXR5PScwLjYnLz4KICA8cmVjdCB4PSc0MzAnIHk9JzI2MCcgd2lkdGg9JzgwJyBoZWlnaHQ9JzkwJyBmaWxsPScjMWIxYjFiJyBvcGFjaXR5PScwLjYnLz4KICA8cmVjdCB4PScxODAnIHk9JzQwMCcgd2lkdGg9JzEyMCcgaGVpZ2h0PSczMCcgZmlsbD0nI2Q5YzI0MScgb3BhY2l0eT0nMC4zNScvPgogIDxyZWN0IHg9JzQzMCcgeT0nNDAwJyB3aWR0aD0nMTIwJyBoZWlnaHQ9JzMwJyBmaWxsPScjZDljMjQxJyBvcGFjaXR5PScwLjM1Jy8+Cjwvc3ZnPgo=');"></div>
+          <h3>Residencial Panorama</h3>
+          <p>Torre residencial com fechamento completo em EPS, garantindo conforto acústico e eficiência energética.</p>
+          <div class="badges">
+            <span class="badge-tag">64 aptos</span>
+            <span class="badge-tag">Prazo -28%</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="project-thumb" style="background-image:url('data:image/svg+xml;base64,CjxzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB3aWR0aD0nOTAwJyBoZWlnaHQ9JzYyMCcgdmlld0JveD0nMCAwIDkwMCA2MjAnPgogIDxyZWN0IGZpbGw9JyMwZjBmMGYnIHdpZHRoPSc5MDAnIGhlaWdodD0nNjIwJy8+CiAgPHJlY3QgeD0nMTUwJyB5PScxMzAnIHdpZHRoPSc1MjAnIGhlaWdodD0nMzgwJyByeD0nMTgnIGZpbGw9JyNmNGY0ZjQnIHN0cm9rZT0nI2Q5YzI0MScgc3Ryb2tlLXdpZHRoPScxMCcvPgogIDxyZWN0IHg9JzE4MCcgeT0nMTYwJyB3aWR0aD0nMjAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nI2ZmZmZmZicgb3BhY2l0eT0nMC45NScvPgogIDxyZWN0IHg9JzQyMCcgeT0nMTYwJyB3aWR0aD0nMjIwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nI2Y5ZjlmOScgb3BhY2l0eT0nMC45NScvPgogIDxyZWN0IHg9JzY2MCcgeT0nMjAwJyB3aWR0aD0nOTAnIGhlaWdodD0nMjQwJyByeD0nMTQnIGZpbGw9JyNlNmU2ZTYnIHN0cm9rZT0nI2I1YjViNScgc3Ryb2tlLXdpZHRoPSc2Jy8+CiAgPHJlY3QgeD0nNjkwJyB5PScyMzAnIHdpZHRoPSc0MCcgaGVpZ2h0PScxODAnIGZpbGw9JyNmZmZmZmYnIG9wYWNpdHk9JzAuOScvPgogIDxyZWN0IHg9JzE4MCcgeT0nMjAwJyB3aWR0aD0nMjAwJyBoZWlnaHQ9JzE4JyBmaWxsPScjZDljMjQxJyBvcGFjaXR5PScwLjIyJy8+CiAgPHJlY3QgeD0nNDIwJyB5PScyMDAnIHdpZHRoPScyMjAnIGhlaWdodD0nMTgnIGZpbGw9JyNkOWMyNDEnIG9wYWNpdHk9JzAuMjInLz4KICA8dGV4dCB4PSc0MTAnIHk9JzUyMCcgZm9udC1zaXplPScyMCcgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nI2Q5YzI0MScgZm9udC1mYW1pbHk9J0FyaWFsLCBzYW5zLXNlcmlmJz5GYWNoYWRhIG1vZHVsYXIgRVBTPC90ZXh0PgogIDx0ZXh0IHg9JzQxMCcgeT0nNTUyJyBmb250LXNpemU9JzE1JyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBmaWxsPScjYjViNWI1JyBmb250LWZhbWlseT0nQXJpYWwsIHNhbnMtc2VyaWYnPkNlbnRybyBDb3Jwb3JhdGl2bzwvdGV4dD4KICA8cGF0aCBkPSdNMjUwIDEzMCBMMjUwIDkwIEw2MjAgOTAgTDYyMCAxMzAnIHN0cm9rZT0nI2Q5YzI0MScgc3Ryb2tlLXdpZHRoPSc4JyBmaWxsPSdub25lJy8+CiAgPGNpcmNsZSBjeD0nMjUwJyBjeT0nOTAnIHI9JzEyJyBmaWxsPScjZDljMjQxJy8+CiAgPGNpcmNsZSBjeD0nNjIwJyBjeT0nOTAnIHI9JzEyJyBmaWxsPScjZDljMjQxJy8+CiAgPHJlY3QgeD0nNTIwJyB5PScyNjAnIHdpZHRoPSc2MCcgaGVpZ2h0PScxMTAnIGZpbGw9JyMxYjFiMWInIG9wYWNpdHk9JzAuNTUnLz4KPC9zdmc+Cg==');"></div>
+          <h3>Centro Corporativo Axis</h3>
+          <p>Fachadas e divisórias em EPS com alto isolamento, permitindo ambientes silenciosos e eficientes.</p>
+          <div class="badges">
+            <span class="badge-tag">10.000 m²</span>
+            <span class="badge-tag">LEED Ready</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="project-thumb" style="background-image:url('data:image/svg+xml;base64,CjxzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB3aWR0aD0nOTAwJyBoZWlnaHQ9JzYyMCcgdmlld0JveD0nMCAwIDkwMCA2MjAnPgogIDxyZWN0IGZpbGw9JyMxMDEwMTAnIHdpZHRoPSc5MDAnIGhlaWdodD0nNjIwJy8+CiAgPHJlY3QgeD0nMTEwJyB5PScxNTAnIHdpZHRoPSc1MjAnIGhlaWdodD0nMzQwJyByeD0nMTgnIGZpbGw9JyNmNWY1ZjUnIHN0cm9rZT0nI2Q5YzI0MScgc3Ryb2tlLXdpZHRoPScxMCcvPgogIDxyZWN0IHg9JzE0MCcgeT0nMTgwJyB3aWR0aD0nMjIwJyBoZWlnaHQ9JzI2MCcgZmlsbD0nI2ZmZmZmZicgb3BhY2l0eT0nMC45NScvPgogIDxyZWN0IHg9JzM4MCcgeT0nMTgwJyB3aWR0aD0nMjIwJyBoZWlnaHQ9JzI2MCcgZmlsbD0nI2Y4ZjhmOCcgb3BhY2l0eT0nMC45NScvPgogIDxyZWN0IHg9JzYzMCcgeT0nMjAwJyB3aWR0aD0nMTIwJyBoZWlnaHQ9JzIyMCcgcng9JzE2JyBmaWxsPScjZTZlNmU2JyBzdHJva2U9JyNiNWI1YjUnIHN0cm9rZS13aWR0aD0nNicvPgogIDxyZWN0IHg9JzY2MCcgeT0nMjMwJyB3aWR0aD0nNjAnIGhlaWdodD0nMTYwJyBmaWxsPScjZmZmZmZmJyBvcGFjaXR5PScwLjknLz4KICA8cmVjdCB4PScxNDAiIHk9JzIyMCcgd2lkdGg9JzIyMCcgaGVpZ2h0PScxNicgZmlsbD0nI2Q5YzI0MScgb3BhY2l0eT0nMC4yMicvPgogIDxyZWN0IHg9JzM4MCcgeT0nMjIwJyB3aWR0aD0nMjIwJyBoZWlnaHQ9JzE2JyBmaWxsPScjZDljMjQxJyBvcGFjaXR5PScwLjIyJy8+CiAgPHBhdGggZD0nTTIyMCA0OTAgQzIyMCA0NzAgMjUwIDQ3MCAyNTAgNDkwIEMyNTAgNTEwIDIyMCA1MTAgMjIwIDQ5MFonIGZpbGw9JyNkOWMyNDEnIG9wYWNpdHk9JzAuNCcvPgogIDxwYXRoIGQ9J000NjAgNDkwIEM0NjAgNDcwIDQ5MCA0NzAgNDkwIDQ5MCBDNDkwIDUxMCA0NjAgNTEwIDQ2MCA0OTBaJyBmaWxsPScjZDljMjQxJyBvcGFjaXR5PScwLjQnLz4KICA8cGF0aCBkPSdNNzAwIDQ2MCBDNzAwIDQ0MCA3NDAgNDQwIDc0MCA0NjAgQzc0MCA0ODAgNzAwIDQ4MCA3MDAgNDYwWicgZmlsbD0nI2Q5YzI0MScgb3BhY2l0eT0nMC4zNScvPgogIDx0ZXh0IHg9JzM3MCcgeT0nNTIwJyBmb250LXNpemU9JzIwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBmaWxsPScjZDljMjQxJyBmb250LWZhbWlseT0nQXJpYWwsIHNhbnMtc2VyaWYnPlNhw7pkZSBjb20gRVBTIGxldmU8L3RleHQ+CiAgPHRleHQgeD0nMzcwJyB5PSc1NTInIGZvbnQtc2l6ZT0nMTUnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZpbGw9JyNiNWI1YjUnIGZvbnQtZmFtaWx5PSdBcmlhbCwgc2Fucy1zZXJpZic+SG9zcGl0YWwgVmlkYSs8L3RleHQ+CiAgPHJlY3QgeD0nMTEwJyB5PScxMjAnIHdpZHRoPScyMDAnIGhlaWdodD0nMzAnIHJ4PScxMCcgZmlsbD0nI2Q5YzI0MScgb3BhY2l0eT0nMC4xOCcvPgogIDxyZWN0IHg9JzUyMCcgeT0nMTIwJyB3aWR0aD0nMTUwJyBoZWlnaHQ9JzMwJyByeD0nMTAnIGZpbGw9JyNkOWMyNDEnIG9wYWNpdHk9JzAuMTgnLz4KPC9zdmc+Cg==');"></div>
+          <h3>Hospital Vida+</h3>
+          <p>Estrutura leve para ampla circulação e conforto térmico, com execução rápida e mínima interferência.</p>
+          <div class="badges">
+            <span class="badge-tag">EPS estrutural</span>
+            <span class="badge-tag">Isolamento otimizado</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal" id="testemunhos">
+      <h2 class="section-title">Clientes e parceiros</h2>
+      <p class="section-sub">Quem já construiu com EPS aprovou a performance e a velocidade.</p>
+      <div class="grid services">
+        <div class="testimonial">
+          <div class="author">
+            <div class="avatar">MB</div>
+            <div>
+              <strong>Marcela Barros</strong>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+          <p>"A montagem com painéis EPS foi surpreendentemente rápida. Tínhamos um prazo agressivo e a Emporium EPS entregou com sobra."</p>
+        </div>
+        <div class="testimonial">
+          <div class="author">
+            <div class="avatar">GF</div>
+            <div>
+              <strong>Gustavo Ferreira</strong>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+          <p>"O conforto acústico do edifício ficou acima das expectativas. A solução de envelopamento termoacústico foi perfeita para o nosso escritório."</p>
+        </div>
+        <div class="testimonial">
+          <div class="author">
+            <div class="avatar">LP</div>
+            <div>
+              <strong>Laura Pereira</strong>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+          <p>"Equilíbrio entre velocidade e qualidade. O canteiro ficou limpo e organizado, com redução real de resíduos."</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="cta">
+        <h2>Vamos elevar o nível da sua obra com EPS?</h2>
+        <p>Fale com nossos engenheiros e receba um estudo rápido de viabilidade, cronograma e investimento.</p>
+        <a class="btn primary" href="#contato">Solicitar proposta</a>
+      </div>
+    </section>
+
+    <section id="contato" class="reveal">
+      <div class="split">
+        <div class="contact-card">
+          <h2 class="section-title" style="margin-bottom:8px;">Contato</h2>
+          <p class="section-sub">Compartilhe detalhes da sua obra e receba um plano em EPS sob medida.</p>
+          <div class="pill-list">
+            <span class="pill">Obras residenciais</span>
+            <span class="pill">Corporativas</span>
+            <span class="pill">Retrofits</span>
+          </div>
+          <div style="margin-top:20px; display:grid; gap:10px; color:var(--light);">
+            <div><strong style="color:var(--gold);">Telefone:</strong> (11) 4000-2024</div>
+            <div><strong style="color:var(--gold);">Email:</strong> contato@emporiumeps.com</div>
+            <div><strong style="color:var(--gold);">Endereço:</strong> Rua Estrutural, 1200 - São Paulo</div>
+          </div>
+        </div>
+        <div class="form-card">
+          <form>
+            <div>
+              <label for="nome">Nome</label>
+              <input id="nome" type="text" placeholder="Seu nome completo" required>
+            </div>
+            <div>
+              <label for="email">E-mail</label>
+              <input id="email" type="email" placeholder="voce@empresa.com" required>
+            </div>
+            <div>
+              <label for="segmento">Tipo de projeto</label>
+              <select id="segmento">
+                <option>Residencial</option>
+                <option>Corporativo</option>
+                <option>Industrial</option>
+                <option>Saúde ou educação</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div>
+              <label for="mensagem">Detalhes da obra</label>
+              <textarea id="mensagem" placeholder="Conte sobre metragem, prazos e expectativas"></textarea>
+            </div>
+            <button class="btn primary" type="submit">Enviar mensagem</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer">
+      <div>
+        <div class="brand" style="margin-bottom:10px;">
+          <div class="logo">EPS</div>
+          Emporium EPS
+        </div>
+        <p>Construção industrializada em EPS com qualidade, velocidade e sustentabilidade para projetos de alto desempenho.</p>
+      </div>
+      <div>
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#servicos">Soluções</a></li>
+          <li><a href="#projetos">Portfólio</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Recursos</h4>
+        <ul>
+          <li><a href="#diferenciais">Tecnologia EPS</a></li>
+          <li><a href="#testemunhos">Clientes</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Social</h4>
+        <ul>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="signature">© 2024 Emporium EPS - Construção inteligente em EPS</div>
+  </footer>
+
+  <a class="whatsapp-btn" href="https://wa.me/5551999999999" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M12 2C6.486 2 2 6.211 2 11.204c0 1.814.534 3.564 1.548 5.086L2 22l5.9-1.512A9.96 9.96 0 0 0 12 20.408C17.514 20.408 22 16.197 22 11.204 22 6.211 17.514 2 12 2Zm0 16.408c-1.364 0-2.7-.362-3.865-1.048l-.277-.163-3.488.893.93-3.217-.181-.287A7.163 7.163 0 0 1 4.4 11.204C4.4 7.009 7.775 3.6 12 3.6s7.6 3.409 7.6 7.604-3.375 7.204-7.6 7.204Z" fill="#f7f7f7"/>
+      <path d="M17.402 14.316c-.297-.148-1.758-.867-2.031-.966-.273-.099-.473-.148-.673.148-.198.297-.77.965-.944 1.162-.173.198-.347.223-.644.074-.297-.148-1.255-.454-2.39-1.447-.883-.788-1.48-1.761-1.653-2.058-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.173.198-.297.297-.495.099-.198.05-.371-.025-.52-.074-.148-.673-1.615-.923-2.215-.243-.579-.49-.5-.673-.51-.173-.009-.371-.011-.57-.011-.198 0-.52.074-.793.372-.273.297-1.043 1.018-1.043 2.479 0 1.46 1.068 2.872 1.217 3.07.149.198 2.106 3.215 5.105 4.506.714.308 1.27.492 1.704.63.715.226 1.366.194 1.88.118.574-.085 1.758-.718 2.006-1.41.248-.694.248-1.289.173-1.411-.074-.123-.272-.198-.57-.347Z" fill="#f7f7f7"/>
+    </svg>
+  </a>
+
+  <script>
+    // Menu toggle for mobile
+    const menuToggle = document.getElementById('menuToggle');
+    const navList = document.getElementById('navList');
+    const navBackdrop = document.getElementById('navBackdrop');
+
+    const setMenuState = (isOpen) => {
+      navList.classList.toggle('open', isOpen);
+      document.body.classList.toggle('menu-open', isOpen);
+      navBackdrop.classList.toggle('visible', isOpen);
+      menuToggle.setAttribute('aria-expanded', isOpen);
+    };
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navList.classList.contains('open');
+      setMenuState(!isOpen);
+    });
+
+    navBackdrop.addEventListener('click', () => setMenuState(false));
+
+    navList.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => setMenuState(false));
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 960) setMenuState(false);
+    });
+
+    // Navbar shrink on scroll
+    const navbar = document.getElementById('navbar');
+    const toggleNavShrink = () => {
+      if (window.scrollY > 20) {
+        navbar.classList.add('shrink');
+      } else {
+        navbar.classList.remove('shrink');
+      }
+    };
+    document.addEventListener('scroll', toggleNavShrink);
+    toggleNavShrink();
+
+    // Reveal animation on scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
